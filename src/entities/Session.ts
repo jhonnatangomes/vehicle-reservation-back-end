@@ -13,4 +13,13 @@ export default class Session {
 
     @ManyToOne(() => User)
     user: User;
+
+    getSession() {
+        return {
+            user: {
+                name: this.user.name,
+            },
+            token: this.token,
+        };
+    }
 }

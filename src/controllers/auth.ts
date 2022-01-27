@@ -1,10 +1,24 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import * as service from "../services/auth";
 
-async function signUp(req: Request, res: Response) {
+async function signUp(req: Request, res: Response, next: NextFunction) {
     const { name, email, password } = req.body;
-    await service.createUser(name, email, password);
-    res.sendStatus(201);
+    try {
+        await service.createUser(name, email, password);
+        res.sendStatus(201);
+    } catch (error) {
+        next(error);
+    }
 }
 
-export { signUp };
+async function login(req: Request, res: Response, next: NextFunction) {
+    const { email, password } = req.body;
+    try {
+        const session = await service.login(email, password);
+        res.send(session);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export { signUp, login };

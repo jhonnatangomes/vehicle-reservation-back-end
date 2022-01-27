@@ -6,7 +6,7 @@ import "reflect-metadata";
 
 import connectDatabase from "./database";
 import errorMiddleware from "./middlewares/errorMiddleware";
-import router from "./routers/index";
+import router from "./routers";
 
 const app = express();
 app.use(cors());
