@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import AlreadyExistingUserError from "../errors/AlreadyExistingUserError";
 import InvalidDataError from "../errors/InvalidDataError";
 import InvalidLoginError from "../errors/InvalidLoginError";
+import UnauthorizedError from "../errors/UnauthorizedError";
 
 export default function errorMiddleware(
     err: Error,
@@ -24,6 +25,10 @@ export default function errorMiddleware(
 
     if (err instanceof AlreadyExistingUserError) {
         return res.status(409).send({ message: err.message });
+    }
+
+    if (err instanceof UnauthorizedError) {
+        return res.status(401).send({ message: err.message });
     }
 
     return res.sendStatus(500);

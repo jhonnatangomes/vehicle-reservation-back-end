@@ -1,8 +1,8 @@
 /* eslint-disable indent */
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("users")
-export default class User {
+export default class User extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -14,4 +14,15 @@ export default class User {
 
     @Column()
     password: string;
+
+    static async getUserByEmail(email: string) {
+        const user = await this.findOne({ email });
+        return user;
+    }
+
+    static async createUser(name: string, email: string, password: string) {
+        const user = this.create({ name, email, password });
+        await this.save(user);
+        return user;
+    }
 }
