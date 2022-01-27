@@ -6,7 +6,7 @@ import AlreadyExistingUserError from "../errors/AlreadyExistingUserError";
 import InvalidLoginError from "../errors/InvalidLoginError";
 
 async function createUser(name: string, email: string, password: string) {
-    const user = User.getUserByEmail(email);
+    const user = await User.getUserByEmail(email);
     if (user) {
         throw new AlreadyExistingUserError();
     }
