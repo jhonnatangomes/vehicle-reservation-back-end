@@ -11,7 +11,9 @@ export default function errorMiddleware(
     res: Response,
     _next: NextFunction
 ) {
-    console.log(err);
+    if (process.env.NODE_ENV !== "test") {
+        console.log(err);
+    }
     if (err instanceof InvalidDataError) {
         return res.status(400).send({
             message: err.message,

@@ -1,5 +1,6 @@
 import supertest from "supertest";
 import app, { init } from "../../src/app";
+import SessionFactory from "../factories/SessionFactory";
 import UserFactory from "../factories/UserFactory";
 import deleteTables from "../utils/deleteTables";
 
@@ -52,12 +53,22 @@ describe("post /sign-in", () => {
     });
 
     it("returns 200 and a token when user succesfully logins", async () => {
-        const login = user.getUser();
-        const result = await agent.post("/sign-in").send({
-            email: login.email,
-            password: login.password,
-        });
+        const result = await agent.post("/sign-in").send(user.getLoginUser());
         expect(result.status).toEqual(200);
         expect(result.body).toHaveProperty("token");
+    });
+});
+
+describe("post /logout", () => {
+    beforeAll(async () => {
+        await deleteTables();
+    });
+
+    it("returns 200 and logouts user", async () => {
+        const session = await SessionFactory.createSession();
+        const result = await agent
+            .post("/logout")
+            .set("Authorization", `Bearer ${session.token}`);
+        expect(result.status).toEqual(200);
     });
 });

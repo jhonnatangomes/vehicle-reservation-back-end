@@ -25,6 +25,7 @@ async function logout(_req: Request, res: Response, next: NextFunction) {
     const { token } = res.locals;
     try {
         await service.logout(token);
+        res.sendStatus(200);
     } catch (error) {
         next(error);
     }

@@ -17,7 +17,7 @@ export default class Session extends BaseEntity {
     @Column()
     token: string;
 
-    @ManyToOne(() => User)
+    @ManyToOne(() => User, { eager: true })
     user: User;
 
     static async getSessionByToken(token: string) {

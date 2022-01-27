@@ -33,13 +33,16 @@ export default class UserFactory {
         };
     }
 
-    getIncorrectUser() {
-        const randomNum = faker.datatype.number();
-        const user = {
-            name: this.name,
+    getLoginUser() {
+        return {
             email: this.email,
             password: this.password,
         };
+    }
+
+    getIncorrectUser() {
+        const randomNum = faker.datatype.number();
+        const user = this.getUser();
         const incorrectOptions = [
             {
                 ...user,
@@ -59,10 +62,7 @@ export default class UserFactory {
 
     getIncorrectLoginUser() {
         const randomNum = faker.datatype.number();
-        const user = {
-            email: this.email,
-            password: this.password,
-        };
+        const user = this.getLoginUser();
         const incorrectOptions = [
             {
                 ...user,
@@ -78,10 +78,7 @@ export default class UserFactory {
 
     getUserWithIncorrectCredentials() {
         const incorrectCredentials = faker.datatype.string();
-        const user = {
-            email: this.email,
-            password: this.password,
-        };
+        const user = this.getLoginUser();
         const incorrectOptions = [
             {
                 ...user,
