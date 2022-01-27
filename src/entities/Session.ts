@@ -3,7 +3,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import User from "./User";
 
-@Entity()
+@Entity("sessions")
 export default class Session {
     @PrimaryGeneratedColumn()
     id: number;

@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity("users")
 export default class User {
     @PrimaryGeneratedColumn()
     id: number;
