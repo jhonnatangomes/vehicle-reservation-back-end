@@ -56,4 +56,42 @@ export default class UserFactory {
         ];
         return getRandomElement(incorrectOptions);
     }
+
+    getIncorrectLoginUser() {
+        const randomNum = faker.datatype.number();
+        const user = {
+            email: this.email,
+            password: this.password,
+        };
+        const incorrectOptions = [
+            {
+                ...user,
+                email: randomNum,
+            },
+            {
+                ...user,
+                password: randomNum,
+            },
+        ];
+        return getRandomElement(incorrectOptions);
+    }
+
+    getUserWithIncorrectCredentials() {
+        const incorrectCredentials = faker.datatype.string();
+        const user = {
+            email: this.email,
+            password: this.password,
+        };
+        const incorrectOptions = [
+            {
+                ...user,
+                email: incorrectCredentials,
+            },
+            {
+                ...user,
+                password: incorrectCredentials,
+            },
+        ];
+        return getRandomElement(incorrectOptions);
+    }
 }

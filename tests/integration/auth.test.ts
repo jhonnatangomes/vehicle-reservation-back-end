@@ -29,3 +29,35 @@ describe("post /sign-up", () => {
         expect(result.status).toEqual(409);
     });
 });
+
+describe("post /sign-in", () => {
+    const user = new UserFactory();
+
+    beforeAll(async () => {
+        await user.createUserInDb();
+    });
+
+    it("returns 400 when invalid data is sent", async () => {
+        const result = await agent
+            .post("/sign-in")
+            .send(user.getIncorrectLoginUser());
+        expect(result.status).toEqual(400);
+    });
+
+    it("returns 404 when an incorrect email or password is given", async () => {
+        const result = await agent
+            .post("/sign-in")
+            .send(user.getUserWithIncorrectCredentials());
+        expect(result.status).toEqual(404);
+    });
+
+    it("returns 200 and a token when user succesfully logins", async () => {
+        const login = user.getUser();
+        const result = await agent.post("/sign-in").send({
+            email: login.email,
+            password: login.password,
+        });
+        expect(result.status).toEqual(200);
+        expect(result.body).toHaveProperty("token");
+    });
+});
