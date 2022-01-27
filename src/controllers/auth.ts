@@ -21,4 +21,13 @@ async function login(req: Request, res: Response, next: NextFunction) {
     }
 }
 
-export { signUp, login };
+async function logout(_req: Request, res: Response, next: NextFunction) {
+    const { token } = res.locals;
+    try {
+        await service.logout(token);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export { signUp, login, logout };

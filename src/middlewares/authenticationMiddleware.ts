@@ -7,16 +7,21 @@ export default async function authenticationMiddleware(
     res: Response,
     next: NextFunction
 ) {
-    const token = req.headers.authorization?.replace("Bearer ", "");
-    if (!token) {
-        throw new UnauthorizedError();
-    }
+    try {
+        const token = req.headers.authorization?.replace("Bearer ", "");
+        if (!token) {
+            throw new UnauthorizedError();
+        }
 
-    const session = await Session.getSessionByToken(token);
-    if (!session) {
-        throw new UnauthorizedError();
-    }
+        const session = await Session.getSessionByToken(token);
+        if (!session) {
+            throw new UnauthorizedError();
+        }
 
-    res.locals.id = session.user.id;
-    next();
+        res.locals.id = session.user.id;
+        res.locals.token = session.token;
+        next();
+    } catch (error) {
+        next(error);
+    }
 }

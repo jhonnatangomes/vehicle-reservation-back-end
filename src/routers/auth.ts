@@ -1,5 +1,6 @@
 import { Router } from "express";
 import * as controller from "../controllers/auth";
+import authenticationMiddleware from "../middlewares/authenticationMiddleware";
 import schemaValidationMiddleware from "../middlewares/schemaValidationMiddleware";
 import signInSchema from "../schemas/signInSchema";
 import signUpSchema from "../schemas/signUpSchema";
@@ -17,5 +18,7 @@ router.post(
     schemaValidationMiddleware(signInSchema),
     controller.login
 );
+
+router.post("/logout", authenticationMiddleware, controller.logout);
 
 export default router;

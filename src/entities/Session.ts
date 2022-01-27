@@ -31,6 +31,10 @@ export default class Session extends BaseEntity {
         return session;
     }
 
+    static async deleteSession(token: string) {
+        await this.delete({ token });
+    }
+
     getSession() {
         return {
             user: {

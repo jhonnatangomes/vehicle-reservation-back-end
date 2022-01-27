@@ -30,4 +30,8 @@ async function login(email: string, password: string) {
     return session.getSession();
 }
 
-export { createUser, login };
+async function logout(token: string) {
+    await Session.deleteSession(token);
+}
+
+export { createUser, login, logout };
