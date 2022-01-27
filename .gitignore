@@ -3,6 +3,7 @@ node_modules
 
 #eslint
 .eslintrc.json
+.eslintignore
 
 #env variables
 .env*
@@ -10,3 +11,4 @@ node_modules
 
 #dist
 dist
+
