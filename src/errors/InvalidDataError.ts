@@ -1,8 +1,8 @@
 export default class InvalidDataError extends Error {
     details: string[];
 
-    constructor(name: string, details: string[]) {
-        super(`Invalid ${name}`);
+    constructor(details: string[]) {
+        super("Campos inválidos");
 
         this.details = details;
         this.name = "InvalidDataError";

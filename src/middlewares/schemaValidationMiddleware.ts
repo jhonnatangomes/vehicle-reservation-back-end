@@ -9,7 +9,6 @@ export default function schemaValidationMiddleware(schema: Schema) {
 
         if (validation.error) {
             throw new InvalidDataError(
-                "body",
                 validation.error.details.map((error) => error.message)
             );
         }

@@ -2,7 +2,7 @@ import NotFoundError from "./NotFoundError";
 
 export default class InvalidLoginError extends NotFoundError {
     constructor() {
-        super("email and/or password invalid");
+        super("Email e/ou senha inválidos.");
         this.name = "InvalidLoginError";
     }
 }
