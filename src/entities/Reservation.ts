@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+import dayjs from "dayjs";
 import {
     BaseEntity,
     Column,
@@ -34,8 +35,15 @@ export default class Reservation extends BaseEntity {
     @Column({ type: "numeric", precision: 10, scale: 2, nullable: true })
     totalToPay: number;
 
-    static async createReservation(user: User, vehicle: Vehicle) {
-        const reservation = this.create({ user, vehicle });
+    @Column({ type: "integer" })
+    daysRented: number;
+
+    static async createReservation(
+        user: User,
+        vehicle: Vehicle,
+        daysRented: number
+    ) {
+        const reservation = this.create({ user, vehicle, daysRented });
         await this.save(reservation);
         return reservation;
     }
@@ -53,12 +61,38 @@ export default class Reservation extends BaseEntity {
         return reservation;
     }
 
+    static async returnVehicle(user: User, vehicle: Vehicle) {
+        const reservation = await this.findOne({
+            user,
+            vehicle,
+            returnDate: IsNull(),
+        });
+        const now = dayjs();
+        const rentalStart = dayjs(reservation.createdAt);
+        const daysUsed = now.diff(rentalStart, "days");
+        const { pricePerDay } = reservation.vehicle;
+        const delayFee = 20;
+        let totalToPay = pricePerDay * daysUsed;
+
+        if (daysUsed > reservation.daysRented) {
+            const delayedDays = daysUsed - reservation.daysRented;
+            totalToPay += delayedDays * delayFee;
+        }
+
+        reservation.returnDate = now.toDate();
+        reservation.totalToPay = totalToPay;
+
+        await this.save(reservation);
+        return reservation;
+    }
+
     getReservation() {
         return {
             vehicle: this.vehicle,
             createdAt: this.createdAt,
             returnDate: this.returnDate,
-            totalToPay: this.totalToPay,
+            totalToPay: this.totalToPay?.toFixed(2) || null,
+            daysRented: this.daysRented,
         };
     }
 }
