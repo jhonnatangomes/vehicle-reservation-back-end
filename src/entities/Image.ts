@@ -1,9 +1,15 @@
 /* eslint-disable indent */
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+    BaseEntity,
+    Column,
+    Entity,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+} from "typeorm";
 import Vehicle from "./Vehicle";
 
 @Entity("images")
-export default class VehicleImage {
+export default class VehicleImage extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 

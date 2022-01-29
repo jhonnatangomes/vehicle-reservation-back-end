@@ -1,10 +1,16 @@
 /* eslint-disable indent */
-import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+    BaseEntity,
+    Entity,
+    JoinColumn,
+    OneToOne,
+    PrimaryGeneratedColumn,
+} from "typeorm";
 import User from "./User";
 import Vehicle from "./Vehicle";
 
 @Entity("reservations")
-export default class Reservation {
+export default class Reservation extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
