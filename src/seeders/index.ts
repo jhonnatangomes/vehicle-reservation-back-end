@@ -1,5 +1,5 @@
 /* eslint-disable */
-import "@/setup";
+import "../setup";
 
 import readline from "readline-sync";
 import fs from "fs";

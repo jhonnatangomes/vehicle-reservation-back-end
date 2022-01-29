@@ -1,43 +1,43 @@
 seeds:
     - Vehicle:
-      id: 1
-      name: "Celta 2022"
-      pricePerDay: 95.90
+        id: 1
+        name: "Celta 2022"
+        pricePerDay: 95.90
     - Vehicle:
-      id: 2
-      name: "Ford Ka 2021"
-      pricePerDay: 135.80
+        id: 2
+        name: "Ford Ka 2021"
+        pricePerDay: 135.80
     - Vehicle:
-      id: 3
-      name: "Lamborghini Gallardo"
-      pricePerDay: 585.70
+        id: 3
+        name: "Lamborghini Gallardo"
+        pricePerDay: 585.70
     - VehicleImage:
-      id: 1
-      url: https://carroslancamentos.com.br/wp-content/uploads/2013/12/novo-Celta.png
-      color: "#E1E1E1"
-      vehicleId: 1
+        id: 1
+        url: https://carroslancamentos.com.br/wp-content/uploads/2013/12/novo-Celta.png
+        color: "#E1E1E1"
+        vehicleId: 1
     - VehicleImage:
-      id: 2
-      url: "https://carroslancamentos.com.br/wp-content/uploads/2013/12/Celta-consumo.jpg"
-      color: "#EB766D"
-      vehicleId: 1
+        id: 2
+        url: "https://carroslancamentos.com.br/wp-content/uploads/2013/12/Celta-consumo.jpg"
+        color: "#EB766D"
+        vehicleId: 1
     - VehicleImage:
-      id: 3
-      url: "https://cdn.awsli.com.br/600x450/65/65405/produto/42025696/136f179906.jpg"
-      color: "#E1E1E1"
-      vehicleId: 2
+        id: 3
+        url: "https://cdn.awsli.com.br/600x450/65/65405/produto/42025696/136f179906.jpg"
+        color: "#E1E1E1"
+        vehicleId: 2
     - VehicleImage:
-      id: 4
-      url: "http://www.blogolandialtda.com.br/img-upload/images/Ford%20Ka.png"
-      color: "#FFFF9B"
-      vehicleId: 2
+        id: 4
+        url: "http://www.blogolandialtda.com.br/img-upload/images/Ford%20Ka.png"
+        color: "#FFFF9B"
+        vehicleId: 2
     - VehicleImage:
-      id: 5
-      url: "https://1.bp.blogspot.com/-_iXtOfG30UU/XuHTBRhFWqI/AAAAAAAAxj8/A_wEytti1rscF7QqMYplRqWwWu2WNFLvgCLcBGAsYHQ/s2560/lamborghini_gallardo_lamborghini_sports_car_172625_3840x2160.jpg"
-      color: "#8BB340"
-      vehicleId: 3
+        id: 5
+        url: "https://1.bp.blogspot.com/-_iXtOfG30UU/XuHTBRhFWqI/AAAAAAAAxj8/A_wEytti1rscF7QqMYplRqWwWu2WNFLvgCLcBGAsYHQ/s2560/lamborghini_gallardo_lamborghini_sports_car_172625_3840x2160.jpg"
+        color: "#8BB340"
+        vehicleId: 3
     - VehicleImage:
-      id: 6
-      url: "http://www.minimundi.com.br/cdn/imagens/produtos/det/60885.jpg"
-      color: "#ECCB04"
-      vehicleId: 3
+        id: 6
+        url: "http://www.minimundi.com.br/cdn/imagens/produtos/det/60885.jpg"
+        color: "#ECCB04"
+        vehicleId: 3
