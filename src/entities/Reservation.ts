@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import User from "./User";
 import Vehicle from "./Vehicle";
 
@@ -9,8 +9,10 @@ export default class Reservation {
     id: number;
 
     @OneToOne(() => User)
+    @JoinColumn()
     user: User;
 
     @OneToOne(() => Vehicle)
+    @JoinColumn()
     vehicle: Vehicle;
 }
