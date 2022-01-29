@@ -1,5 +1,3 @@
-import bcrypt from "bcrypt";
-import { v4 as uuid } from "uuid";
 import User from "../entities/User";
 import Session from "../entities/Session";
 import AlreadyExistingUserError from "../errors/AlreadyExistingUserError";
@@ -10,8 +8,7 @@ async function createUser(name: string, email: string, password: string) {
     if (user) {
         throw new AlreadyExistingUserError();
     }
-    const hashedPassword = bcrypt.hashSync(password, 12);
-    const newUser = await User.createUser(name, email, hashedPassword);
+    const newUser = await User.createUser(name, email, password);
     return newUser;
 }
 
@@ -21,12 +18,11 @@ async function login(email: string, password: string) {
         throw new InvalidLoginError();
     }
 
-    const invalidPassword = !bcrypt.compareSync(password, user.password);
-    if (invalidPassword) {
+    if (!User.isValidPassword(password, user.password)) {
         throw new InvalidLoginError();
     }
-    const token = uuid();
-    const session = await Session.createSession(token, user);
+
+    const session = await Session.createSession(user);
     return session.getSession();
 }
 

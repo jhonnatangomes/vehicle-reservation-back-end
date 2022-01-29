@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import bcrypt from "bcrypt";
 
 @Entity("users")
 export default class User extends BaseEntity {
@@ -21,7 +22,8 @@ export default class User extends BaseEntity {
     }
 
     static async createUser(name: string, email: string, password: string) {
-        const user = this.create({ name, email, password });
+        const hashedPassword = bcrypt.hashSync(password, 12);
+        const user = this.create({ name, email, password: hashedPassword });
         await this.save(user);
         return user;
     }
@@ -29,5 +31,10 @@ export default class User extends BaseEntity {
     static async getUserById(userId: number) {
         const user = await this.findOne({ id: userId });
         return user;
+    }
+
+    static isValidPassword(password: string, hashedPassword: string) {
+        const validPassword = bcrypt.compareSync(password, hashedPassword);
+        return validPassword;
     }
 }
