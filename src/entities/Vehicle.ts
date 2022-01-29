@@ -26,4 +26,9 @@ export default class Vehicle extends BaseEntity {
         const vehicles = await this.find();
         return vehicles;
     }
+
+    static async getVehicleById(vehicleId: number) {
+        const vehicle = await this.findOne({ id: vehicleId });
+        return vehicle;
+    }
 }

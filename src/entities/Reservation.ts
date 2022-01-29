@@ -4,8 +4,9 @@ import {
     Column,
     CreateDateColumn,
     Entity,
+    IsNull,
     JoinColumn,
-    OneToOne,
+    ManyToOne,
     PrimaryGeneratedColumn,
 } from "typeorm";
 import User from "./User";
@@ -16,11 +17,11 @@ export default class Reservation extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @OneToOne(() => User)
+    @ManyToOne(() => User)
     @JoinColumn()
     user: User;
 
-    @OneToOne(() => Vehicle)
+    @ManyToOne(() => Vehicle, { eager: true })
     @JoinColumn()
     vehicle: Vehicle;
 
@@ -32,4 +33,32 @@ export default class Reservation extends BaseEntity {
 
     @Column({ type: "numeric", precision: 10, scale: 2, nullable: true })
     totalToPay: number;
+
+    static async createReservation(user: User, vehicle: Vehicle) {
+        const reservation = this.create({ user, vehicle });
+        await this.save(reservation);
+        return reservation;
+    }
+
+    static async getUserReservation(user: User) {
+        const reservation = await this.findOne({ user, returnDate: IsNull() });
+        return reservation;
+    }
+
+    static async getVehicleReservation(vehicle: Vehicle) {
+        const reservation = await this.findOne({
+            vehicle,
+            returnDate: IsNull(),
+        });
+        return reservation;
+    }
+
+    getReservation() {
+        return {
+            vehicle: this.vehicle,
+            createdAt: this.createdAt,
+            returnDate: this.returnDate,
+            totalToPay: this.totalToPay,
+        };
+    }
 }

@@ -25,4 +25,9 @@ export default class User extends BaseEntity {
         await this.save(user);
         return user;
     }
+
+    static async getUserById(userId: number) {
+        const user = await this.findOne({ id: userId });
+        return user;
+    }
 }
