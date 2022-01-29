@@ -19,6 +19,9 @@ export default class Vehicle extends BaseEntity {
     @OneToMany(() => VehicleImage, (image) => image.vehicle, { eager: true })
     images: VehicleImage[];
 
+    @Column({ type: "numeric", precision: 10, scale: 2 })
+    pricePerDay: number;
+
     static async getVehicles() {
         const vehicles = await this.find();
         return vehicles;

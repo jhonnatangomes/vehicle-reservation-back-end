@@ -2,12 +2,15 @@ seeds:
     - Vehicle:
       id: 1
       name: "Celta 2022"
+      pricePerDay: 95.90
     - Vehicle:
       id: 2
       name: "Ford Ka 2021"
+      pricePerDay: 135.80
     - Vehicle:
       id: 3
       name: "Lamborghini Gallardo"
+      pricePerDay: 585.70
     - VehicleImage:
       id: 1
       url: https://carroslancamentos.com.br/wp-content/uploads/2013/12/novo-Celta.png
