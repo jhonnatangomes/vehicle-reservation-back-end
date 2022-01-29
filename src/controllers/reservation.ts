@@ -28,4 +28,13 @@ async function returnVehicle(req: Request, res: Response, next: NextFunction) {
     }
 }
 
-export { reserveVehicle, returnVehicle };
+async function getReservation(req: Request, res: Response, next: NextFunction) {
+    try {
+        const reservation = await service.getReservation(res.locals.id);
+        res.send(reservation);
+    } catch (error) {
+        next(error);
+    }
+}
+
+export { reserveVehicle, returnVehicle, getReservation };

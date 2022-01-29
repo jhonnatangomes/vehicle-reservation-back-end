@@ -57,4 +57,10 @@ async function returnVehicle(userId: number, vehicleId: number) {
     return newReservation.getReservation();
 }
 
-export { reserveVehicle, returnVehicle };
+async function getReservation(userId: number) {
+    const user = await User.getUserById(userId);
+    const userReservation = await Reservation.getUserReservation(user);
+    return userReservation;
+}
+
+export { reserveVehicle, returnVehicle, getReservation };

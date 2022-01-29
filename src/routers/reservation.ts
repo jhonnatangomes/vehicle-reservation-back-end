@@ -16,5 +16,6 @@ router.post(
     schemaValidationMiddleware(returnVehicleSchema),
     controller.returnVehicle
 );
+router.get("/", controller.getReservation);
 
 export default router;
