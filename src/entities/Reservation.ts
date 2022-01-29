@@ -38,6 +38,12 @@ export default class Reservation extends BaseEntity {
     @Column({ type: "integer" })
     daysRented: number;
 
+    @Column({ nullable: true })
+    isDelayed: boolean;
+
+    @Column({ type: "integer", nullable: true })
+    totalDelayFee: number;
+
     static async createReservation(
         user: User,
         vehicle: Vehicle,
@@ -76,7 +82,12 @@ export default class Reservation extends BaseEntity {
 
         if (daysUsed > reservation.daysRented) {
             const delayedDays = daysUsed - reservation.daysRented;
-            totalToPay += delayedDays * delayFee;
+            const totalDelayFee = delayedDays * delayFee;
+            totalToPay += totalDelayFee;
+            reservation.totalDelayFee = totalDelayFee;
+            reservation.isDelayed = true;
+        } else {
+            reservation.isDelayed = false;
         }
 
         reservation.returnDate = now.toDate();
@@ -93,6 +104,8 @@ export default class Reservation extends BaseEntity {
             returnDate: this.returnDate,
             totalToPay: this.totalToPay?.toFixed(2) || null,
             daysRented: this.daysRented,
+            isDelayed: this.isDelayed,
+            totalDelayFee: this.totalDelayFee,
         };
     }
 }
