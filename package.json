@@ -16,7 +16,8 @@
     "migration:run-production": "NODE_ENV=production ts-node ./node_modules/typeorm/cli migration:run",
     "eslint": "npx eslint 'src/**'",
     "eslint:fix": "npx eslint --fix 'src/**'",
-    "seed": "NODE_ENV=development ts-node ./src/seeders"
+    "seed": "NODE_ENV=development ts-node ./src/seeders",
+    "seed:production": "NODE_ENV=production NODE_TLS_REJECT_UNAUTHORIZED=0 ts-node ./src/seeders"
   },
   "keywords": [],
   "author": "",
