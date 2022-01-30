@@ -20,7 +20,7 @@ afterAll(async () => {
 
 describe("get /vehicles", () => {
     it("returns 200 and a list of vehicles", async () => {
-        const vehicles = await VehicleFactory.createVehicles();
+        const vehicles = await VehicleFactory.createVehicles(5);
         await ImageFactory.createImages(vehicles);
         const session = await SessionFactory.createSession();
 

@@ -10,9 +10,9 @@ export default class VehicleFactory {
         return vehicle;
     }
 
-    static async createVehicles() {
+    static async createVehicles(amount: number) {
         const vehicles: Vehicle[] = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < amount; i++) {
             vehicles.push(this.createVehicle());
         }
         await Vehicle.save(vehicles);
