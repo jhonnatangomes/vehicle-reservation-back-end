@@ -1,10 +1,6 @@
 #node modules
 node_modules
 
-#eslint
-.eslintrc.json
-.eslintignore
-
 #env variables
 .env*
 !.env.example
