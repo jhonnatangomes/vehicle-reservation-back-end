@@ -4,28 +4,28 @@ import User from "../../src/entities/User";
 import getRandomElement from "../utils/getRandomElement";
 import VehicleFactory from "./VehicleFactory";
 
-interface ReservationBody {
-    vehicleId: number | string;
-    daysRented: number | string;
-}
-
 export default class ReservationFactory {
-    static getWrongReservationBody(): ReservationBody {
-        const params = {
+    static getWrongReservationBody() {
+        const body = {
             vehicleId: faker.datatype.number(),
             daysRented: faker.datatype.number(),
         };
-        const wrongParams = [
+        const wrongBody = [
             {
-                ...params,
+                ...body,
                 vehicleId: faker.datatype.string(),
             },
             {
-                ...params,
+                ...body,
                 daysRented: faker.datatype.string(),
             },
         ];
-        return getRandomElement(wrongParams);
+        return getRandomElement(wrongBody);
+    }
+
+    static getWrongReturnBody() {
+        const wrongBody = [{}, { vehicleId: faker.datatype.string() }];
+        return getRandomElement(wrongBody);
     }
 
     static async createPreviousReservation(userId?: number) {
