@@ -3,12 +3,17 @@ import app, { init } from "../../src/app";
 import SessionFactory from "../factories/SessionFactory";
 import UserFactory from "../factories/UserFactory";
 import deleteTables from "../utils/deleteTables";
+import endConnection from "../utils/endConnection";
 
 const agent = supertest(app);
 
 beforeAll(async () => {
     await init();
     await deleteTables();
+});
+
+afterAll(async () => {
+    await endConnection();
 });
 
 describe("post /sign-up", () => {

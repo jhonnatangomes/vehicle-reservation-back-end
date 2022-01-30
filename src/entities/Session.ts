@@ -1,5 +1,4 @@
 /* eslint-disable indent */
-
 import {
     BaseEntity,
     Column,
@@ -7,6 +6,7 @@ import {
     ManyToOne,
     PrimaryGeneratedColumn,
 } from "typeorm";
+import { v4 as uuid } from "uuid";
 import User from "./User";
 
 @Entity("sessions")
@@ -25,7 +25,8 @@ export default class Session extends BaseEntity {
         return session;
     }
 
-    static async createSession(token: string, user: User) {
+    static async createSession(user: User) {
+        const token = uuid();
         const session = this.create({ user, token });
         await this.save(session);
         return session;

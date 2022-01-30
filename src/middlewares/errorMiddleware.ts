@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { NextFunction, Request, Response } from "express";
-import AlreadyExistingUserError from "../errors/AlreadyExistingUserError";
+import ConflictError from "../errors/ConflictError";
 import InvalidDataError from "../errors/InvalidDataError";
-import InvalidLoginError from "../errors/InvalidLoginError";
+import NotFoundError from "../errors/NotFoundError";
 import UnauthorizedError from "../errors/UnauthorizedError";
 
 export default function errorMiddleware(
@@ -21,16 +21,16 @@ export default function errorMiddleware(
         });
     }
 
-    if (err instanceof InvalidLoginError) {
+    if (err instanceof UnauthorizedError) {
+        return res.status(401).send({ message: err.message });
+    }
+
+    if (err instanceof NotFoundError) {
         return res.status(404).send({ message: err.message });
     }
 
-    if (err instanceof AlreadyExistingUserError) {
+    if (err instanceof ConflictError) {
         return res.status(409).send({ message: err.message });
-    }
-
-    if (err instanceof UnauthorizedError) {
-        return res.status(401).send({ message: err.message });
     }
 
     return res.sendStatus(500);

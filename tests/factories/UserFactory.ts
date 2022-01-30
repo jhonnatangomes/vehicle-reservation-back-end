@@ -1,6 +1,5 @@
 /* eslint-disable lines-between-class-members */
 import faker from "@faker-js/faker";
-import bcrypt from "bcrypt";
 import User from "../../src/entities/User";
 import getRandomElement from "../utils/getRandomElement";
 
@@ -16,11 +15,10 @@ export default class UserFactory {
     }
 
     async createUserInDb() {
-        const hashedPassword = bcrypt.hashSync(this.password, 12);
         const user = await User.createUser(
             this.name,
             this.email,
-            hashedPassword
+            this.password
         );
         return user;
     }
