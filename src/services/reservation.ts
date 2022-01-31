@@ -32,7 +32,7 @@ async function reserveVehicle(
         vehicle,
         daysRented
     );
-    return newReservation.getReservation();
+    return newReservation.getReservation(newReservation.vehicle.id);
 }
 
 async function returnVehicle(userId: number, vehicleId: number) {
@@ -54,7 +54,7 @@ async function returnVehicle(userId: number, vehicleId: number) {
     }
 
     const newReservation = await Reservation.returnVehicle(user, vehicle);
-    return newReservation.getReservation();
+    return newReservation.getReservation(newReservation.vehicle.id);
 }
 
 async function getReservation(userId: number) {

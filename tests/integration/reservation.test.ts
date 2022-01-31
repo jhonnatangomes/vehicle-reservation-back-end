@@ -93,20 +93,11 @@ describe("post /reservation", () => {
             })
             .set("Authorization", `Bearer ${session.token}`);
         expect(result.status).toEqual(200);
-        expect(result.body).toHaveProperty("vehicle");
-        expect(result.body).toHaveProperty("createdAt");
-        expect(result.body).toHaveProperty("returnDate");
-        expect(result.body).toHaveProperty("totalToPay");
-        expect(result.body).toHaveProperty("daysRented");
-        expect(result.body).toHaveProperty("isDelayed");
-        expect(result.body).toHaveProperty("totalDelayFee");
-        expect(result.body.vehicle).toHaveProperty("id");
-        expect(result.body.vehicle).toHaveProperty("name");
-        expect(result.body.vehicle).toHaveProperty("images");
-        expect(result.body.vehicle).toHaveProperty("pricePerDay");
-        expect(result.body.vehicle.images[0]).toHaveProperty("id");
-        expect(result.body.vehicle.images[0]).toHaveProperty("url");
-        expect(result.body.vehicle.images[0]).toHaveProperty("color");
+        expect(result.body).toHaveProperty("id");
+        expect(result.body).toHaveProperty("name");
+        expect(result.body).toHaveProperty("pricePerDay");
+        expect(result.body).toHaveProperty("reservations");
+        expect(result.body).toHaveProperty("images");
     });
 });
 

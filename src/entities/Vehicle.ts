@@ -31,9 +31,33 @@ export default class Vehicle extends BaseEntity {
             .leftJoinAndSelect("vehicle.reservations", "reservation")
             .leftJoinAndSelect("vehicle.images", "image")
             .leftJoinAndSelect("reservation.user", "user")
-            .where("reservation.returnDate IS NULL")
+            .orderBy({
+                "vehicle.id": "ASC",
+                "reservation.id": "DESC",
+            })
             .getMany();
         return vehicles.map((vehicle) => ({
+            ...vehicle,
+            reservations:
+                vehicle.reservations[0]?.returnDate === null
+                    ? {
+                          ...vehicle.reservations[0],
+                          user: {
+                              email: vehicle.reservations[0]?.user.email,
+                          },
+                      }
+                    : null,
+        }));
+    }
+
+    static async getVehicle(vehicleId: number) {
+        const vehicle = await this.createQueryBuilder("vehicle")
+            .leftJoinAndSelect("vehicle.reservations", "reservation")
+            .leftJoinAndSelect("vehicle.images", "image")
+            .leftJoinAndSelect("reservation.user", "user")
+            .where("vehicle.id = :id", { id: vehicleId })
+            .getOne();
+        return {
             ...vehicle,
             reservations: vehicle.reservations[0]
                 ? {
@@ -43,7 +67,7 @@ export default class Vehicle extends BaseEntity {
                       },
                   }
                 : null,
-        }));
+        };
     }
 
     static async getVehicleById(vehicleId: number) {
