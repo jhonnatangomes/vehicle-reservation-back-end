@@ -31,18 +31,22 @@ export default class Vehicle extends BaseEntity {
             .leftJoinAndSelect("vehicle.reservations", "reservation")
             .leftJoinAndSelect("vehicle.images", "image")
             .leftJoinAndSelect("reservation.user", "user")
-            .where("reservation.returnDate IS NULL")
+            .orderBy({
+                "vehicle.id": "ASC",
+                "reservation.id": "DESC",
+            })
             .getMany();
         return vehicles.map((vehicle) => ({
             ...vehicle,
-            reservations: vehicle.reservations[0]
-                ? {
-                      ...vehicle.reservations[0],
-                      user: {
-                          email: vehicle.reservations[0]?.user.email,
-                      },
-                  }
-                : null,
+            reservations:
+                vehicle.reservations[0]?.returnDate === null
+                    ? {
+                          ...vehicle.reservations[0],
+                          user: {
+                              email: vehicle.reservations[0]?.user.email,
+                          },
+                      }
+                    : null,
         }));
     }
 
