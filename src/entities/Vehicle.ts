@@ -46,6 +46,26 @@ export default class Vehicle extends BaseEntity {
         }));
     }
 
+    static async getVehicle(vehicleId: number) {
+        const vehicle = await this.createQueryBuilder("vehicle")
+            .leftJoinAndSelect("vehicle.reservations", "reservation")
+            .leftJoinAndSelect("vehicle.images", "image")
+            .leftJoinAndSelect("reservation.user", "user")
+            .where("vehicle.id = :id", { id: vehicleId })
+            .getOne();
+        return {
+            ...vehicle,
+            reservations: vehicle.reservations[0]
+                ? {
+                      ...vehicle.reservations[0],
+                      user: {
+                          email: vehicle.reservations[0]?.user.email,
+                      },
+                  }
+                : null,
+        };
+    }
+
     static async getVehicleById(vehicleId: number) {
         const vehicle = await this.findOne({ id: vehicleId });
         return vehicle;

@@ -99,15 +99,9 @@ export default class Reservation extends BaseEntity {
         return reservation;
     }
 
-    getReservation() {
-        return {
-            vehicle: this.vehicle,
-            createdAt: this.createdAt,
-            returnDate: this.returnDate,
-            totalToPay: this.totalToPay?.toFixed(2) || null,
-            daysRented: this.daysRented,
-            isDelayed: this.isDelayed,
-            totalDelayFee: this.totalDelayFee,
-        };
+    // eslint-disable-next-line class-methods-use-this
+    async getReservation(vehicleId: number) {
+        const vehicle = await Vehicle.getVehicle(vehicleId);
+        return vehicle;
     }
 }
