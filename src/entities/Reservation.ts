@@ -22,7 +22,9 @@ export default class Reservation extends BaseEntity {
     @JoinColumn()
     user: User;
 
-    @ManyToOne(() => Vehicle, { eager: true })
+    @ManyToOne(() => Vehicle, (vehicle) => vehicle.reservations, {
+        eager: true,
+    })
     @JoinColumn()
     vehicle: Vehicle;
 
