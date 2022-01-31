@@ -40,6 +40,7 @@ export default class Session extends BaseEntity {
         return {
             user: {
                 name: this.user.name,
+                email: this.user.email,
             },
             token: this.token,
         };
