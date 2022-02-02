@@ -1,0 +1,43 @@
+#!/bin/bash
+
+checkPostgres () {
+  if [[ $(id -u postgres 2> /dev/null) = "" ]]; then
+    echo "Parece que o postgres não está instalado!";
+    echo "Execute: sudo apt update && sudo apt install postgresql postgresql-contrib";
+    exit;
+  fi
+
+  if [[ $(pgrep -u postgres -fa -- -D) = "" ]]; then
+    echo "PostgreSQL não está sendo executado, tentando iniciar...";
+    sudo service postgresql start;
+  fi
+}
+
+destroyDatabase () {
+  sudo -i -u postgres psql -c "DROP DATABASE $1;";
+}
+
+enterPostgresCli () {
+  sudo -i -u postgres psql -d $1;
+}
+
+createRole() {
+  sudo -i -u postgres psql -c "
+    CREATE ROLE $1 WITH SUPERUSER CREATEDB CREATEROLE LOGIN ENCRYPTED PASSWORD '123456';
+  ";
+}
+
+createDatabase () {
+  echo "Criando banco de dados...";
+  sudo -i -u postgres psql -c "CREATE DATABASE $1;";
+}
+
+createEnvVariables () {
+  echo "Criando variáveis de ambiente...";
+
+  echo "DATABASE_URL=postgres://$1:123456@localhost:5432/$2
+        PORT=4000" > ../.env.development &&
+
+  echo "DATABASE_URL=postgres://$1:123456@localhost:5432/$3
+        PORT=4000" > ../.env.test;
+}

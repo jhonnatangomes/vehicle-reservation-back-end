@@ -1,0 +1,18 @@
+#!/bin/bash
+
+source src/functions;
+
+DATABASE=$(cat src/database);
+DATABASE_TEST=$(cat src/database_test);
+ROLE=$(cat src/role);
+
+echo "Checando status do postgres..." &&
+checkPostgres &&
+
+createRole $ROLE &&
+
+createDatabase $DATABASE &&
+
+createDatabase $DATABASE_TEST &&
+
+createEnvVariables $ROLE $DATABASE $DATABASE_TEST;
