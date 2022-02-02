@@ -60,7 +60,10 @@ async function returnVehicle(userId: number, vehicleId: number) {
 async function getReservation(userId: number) {
     const user = await User.getUserById(userId);
     const userReservation = await Reservation.getUserReservation(user);
-    return userReservation;
+    const vehicleReserved = await Vehicle.getVehicle(
+        userReservation?.vehicle.id
+    );
+    return vehicleReserved;
 }
 
 export { reserveVehicle, returnVehicle, getReservation };

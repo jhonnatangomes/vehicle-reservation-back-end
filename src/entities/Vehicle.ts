@@ -57,6 +57,9 @@ export default class Vehicle extends BaseEntity {
             .leftJoinAndSelect("reservation.user", "user")
             .where("vehicle.id = :id", { id: vehicleId })
             .getOne();
+        if (!vehicle) {
+            return {};
+        }
         return {
             ...vehicle,
             reservations: vehicle.reservations[0]
