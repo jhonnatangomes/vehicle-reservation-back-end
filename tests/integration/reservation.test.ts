@@ -171,7 +171,7 @@ describe("post /reservation/return", () => {
             })
             .set("Authorization", `Bearer ${session.token}`);
         expect(result.status).toEqual(200);
-        expect(result.body.returnDate).not.toEqual(null);
+        expect(result.body.reservations.returnDate).not.toEqual(null);
     });
 });
 
@@ -197,6 +197,6 @@ describe("get /reservation", () => {
             .get("/reservation")
             .set("Authorization", `Bearer ${session.token}`);
         expect(result.status).toEqual(200);
-        expect(result.body.returnDate).toEqual(null);
+        expect(result.body.reservations.returnDate).toEqual(null);
     });
 });
